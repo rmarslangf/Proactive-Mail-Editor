@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ProactiveMail</title>
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<!-- ── Üst çubuk ─────────────────────────────────────────────────────────── -->
+<div id="topbar">
+  <span class="logo">✉ ProactiveMail</span>
+  <button class="tab-btn active" data-tab="editor">✍️ Editör</button>
+  <button class="tab-btn" data-tab="recipients">👥 Alıcılar</button>
+  <button class="tab-btn" data-tab="send">🚀 Gönder</button>
+  <button class="tab-btn" data-tab="logs">📋 Geçmiş</button>
+  <button class="tab-btn" data-tab="settings">⚙️ Ayarlar</button>
+  <div class="spacer"></div>
+  <button class="btn" id="btn-save-campaign">💾 Kaydet</button>
+  <button class="btn" id="btn-load-campaign">📂 Yükle</button>
+  <button class="btn accent" id="btn-copy-html">📋 HTML Kopyala</button>
+  <button class="btn success" id="btn-export-html">⬇ İndir</button>
+</div>
+
+<!-- ── Ana alan ──────────────────────────────────────────────────────────── -->
+<div id="main">
+
+  <!-- ══ EDITOR SEKMESİ ══════════════════════════════════════════════════ -->
+  <div class="tab-pane active" id="tab-editor">
+    <div id="editor-pane">
+
+      <!-- Sol panel -->
+      <div id="left-panel">
+        <div id="left-scroll">
+
+          <!-- Konu -->
+          <div class="section-label">CAMPAIGN BİLGİSİ</span></div>
+          <div class="input-group">
+            <label>Konu Satırı</label>
+            <div style="display:flex;gap:6px">
+              <input type="text" id="subject" placeholder="Konu...">
+              <button class="btn accent" id="btn-apply" style="white-space:nowrap">✔ Uygula</button>
+            </div>
+          </div>
+          <div class="color-row" style="margin-bottom:8px">
+            <label style="font-size:11px;color:var(--muted);width:120px">Dil:</label>
+            <select id="lang-sel" style="width:100px;padding:4px">
+              <option value="TR">🇹🇷 Türkçe</option>
+              <option value="EN">🇬🇧 English</option>
+            </select>
+          </div>
+
+          <!-- Header -->
+          <div class="section-label" data-lang="sec_header">HEADER</div>
+          <div class="input-group">
+            <label>Header Görseli (PNG)</label>
+            <div style="display:flex;gap:6px;align-items:center">
+              <input type="file" id="header-file" accept=".png,.jpg,.jpeg,.webp"
+                style="flex:1;padding:4px">
+              <button class="btn" id="btn-clear-header">✕</button>
+            </div>
+          </div>
+          <div class="color-row">
+            <label style="font-size:11px;color:var(--muted)">Arka Plan:</label>
+            <input type="color" id="header-bg" value="#1B3A5C">
+            <label style="font-size:11px;color:var(--muted)">Yazı:</label>
+            <input type="color" id="header-txt" value="#ffffff">
+          </div>
+
+          <!-- Footer -->
+          <div class="section-label" data-lang="sec_footer">FOOTER</div>
+          <div class="input-group">
+            <label>Footer Metni</label>
+            <input type="text" id="footer-text"
+              value="Bu e-posta otomatik olarak gönderilmiştir.">
+          </div>
+          <div class="input-group">
+            <label>Footer Görseli (PNG)</label>
+            <div style="display:flex;gap:6px;align-items:center">
+              <input type="file" id="footer-file" accept=".png,.jpg,.jpeg,.webp"
+                style="flex:1;padding:4px">
+              <button class="btn" id="btn-clear-footer">✕</button>
+            </div>
+          </div>
+          <div class="color-row">
+            <label style="font-size:11px;color:var(--muted)">Arka Plan:</label>
+            <input type="color" id="footer-bg" value="#1B3A5C">
+            <label style="font-size:11px;color:var(--muted)">Yazı:</label>
+            <input type="color" id="footer-txt-color" value="#AABCD0">
+          </div>
+          <div class="color-row">
+            <label style="font-size:11px;color:var(--muted)">
+              <input type="checkbox" id="hide-subject"> Başlığı Gizle
+            </label>
+            <label style="font-size:11px;color:var(--muted)">
+              <input type="checkbox" id="hide-footer-txt"> Alt Yazıyı Gizle
+            </label>
+          </div>
+
+          <!-- Renkler -->
+          <div class="section-label" data-lang="sec_colors">RENKLER</div>
+          <div class="color-row">
+            <label style="font-size:11px;color:var(--muted)">İçerik Kutusu:</label>
+            <div id="palette-row" style="display:flex;gap:4px;flex-wrap:wrap"></div>
+            <input type="color" id="box-bg" value="#ffffff" title="Özel renk">
+          </div>
+          <div class="color-row">
+            <label style="font-size:11px;color:var(--muted)">Vurgu:</label>
+            <input type="color" id="accent-color" value="#1B3A5C">
+          </div>
+          <div class="color-row">
+            <label style="font-size:11px;color:var(--muted)">Font:</label>
+            <select id="global-font" style="flex:1;padding:4px">
+              <option value="Georgia, serif">Georgia</option>
+              <option value="Arial, sans-serif">Arial</option>
+              <option value="Helvetica, sans-serif">Helvetica</option>
+              <option value="Times New Roman, serif">Times New Roman</option>
+              <option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+              <option value="Verdana, sans-serif">Verdana</option>
+              <option value="Tahoma, sans-serif">Tahoma</option>
+              <option value="Courier New, monospace">Courier New</option>
+              <option value="Palatino, serif">Palatino</option>
+            </select>
+            <label style="font-size:11px;color:var(--muted)">Punto:</label>
+            <input type="number" id="global-size" value="15" min="8" max="48"
+              style="width:56px;padding:4px">
+          </div>
+
+          <!-- Blok ekle -->
+          <div class="section-label" data-lang="sec_addblock">BLOK EKLE</div>
+          <div class="add-block-grid" id="add-block-grid"></div>
+
+          <!-- Blok listesi -->
+          <div class="section-label" data-lang="sec_blocks">İÇERİK BLOKLARI</div>
+          <div id="blocks-list">
+            <div id="empty-lbl" style="color:#2a2a4a;font-size:13px;
+              text-align:center;padding:20px">
+              Henüz blok yok. Yukarıdan ekleyin ↑
+            </div>
+          </div>
+
+        </div><!-- /left-scroll -->
+
+        <!-- Alt butonlar -->
+        <div style="display:flex;gap:6px;padding:8px 12px;
+          border-top:1px solid var(--border);flex-wrap:wrap">
+          <button class="btn danger" id="btn-clear-all">🗑 Temizle</button>
+          <button class="btn" id="btn-clear-content">🧹 İçeriği Temizle</button>
+        </div>
+      </div><!-- /left-panel -->
+
+      <!-- Önizleme -->
+      <div id="right-panel">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;
+          border-bottom:1px solid var(--border);background:var(--panel)">
+          <span style="font-size:11px;font-weight:700;
+            letter-spacing:2px;color:var(--muted)">ÖNİZLEME</span>
+          <div style="flex:1"></div>
+          <button class="btn" id="btn-refresh-preview">🔄</button>
+        </div>
+        <iframe id="preview-frame" title="preview"></iframe>
+      </div>
+
+    </div>
+  </div><!-- /tab-editor -->
+
+  <!-- ══ ALICILAR SEKMESİ ═════════════════════════════════════════════════ -->
+  <div class="tab-pane" id="tab-recipients">
+    <div id="recipients-pane">
+      <div id="group-panel">
+        <div class="section-label" data-lang="grp_label">GRUPLAR</div>
+        <div id="group-list"></div>
+        <div style="display:flex;gap:4px;margin-top:auto;padding-top:8px">
+          <button class="btn" id="btn-add-group" style="flex:1">+ Grup</button>
+          <button class="btn" id="btn-edit-group">✏</button>
+          <button class="btn danger" id="btn-del-group">🗑</button>
+        </div>
+      </div>
+      <div id="recipient-panel">
+        <div class="toolbar">
+          <input type="text" id="rec-search" placeholder="🔍 Ara...">
+          <select id="sub-filter">
+            <option value="all">Tümü</option>
+            <option value="yes">Abone</option>
+            <option value="no">İptal</option>
+          </select>
+          <button class="btn" id="btn-add-rec">+ Alıcı</button>
+          <button class="btn" id="btn-edit-rec">✏ Düzenle</button>
+          <button class="btn danger" id="btn-del-rec">🗑 Sil</button>
+          <button class="btn danger" id="btn-unsub-rec">⛔ İptal</button>
+          <button class="btn success" id="btn-resub-rec">✅ Abone</button>
+          <button class="btn" id="btn-import-csv">📂 CSV</button>
+          <input type="file" id="csv-file" accept=".csv" style="display:none">
+          <span id="rec-count" style="font-size:11px;color:var(--muted);margin-left:auto"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Ad Soyad</th><th>E-posta</th><th>Şirket</th>
+                <th>Grup</th><th>Abone</th><th>Eklenme</th>
+              </tr>
+            </thead>
+            <tbody id="rec-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GÖNDER SEKMESİ ══════════════════════════════════════════════════ -->
+  <div class="tab-pane" id="tab-send">
+    <div id="send-pane">
+      <h2 data-lang-h2="send_title" style="color:var(--accent);margin-bottom:16px">🚀 Campaign Gönder</h2>
+      <div class="settings-group">
+        <h3>GÖNDERİM AYARLARI</h3>
+        <div class="form-row">
+          <label>Alıcı Grubu:</label>
+          <select id="send-group"></select>
+        </div>
+        <div class="form-row">
+          <label></label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px">
+            <input type="checkbox" id="test-mode">
+            Test modu — sadece kendi e-postama gönder
+          </label>
+        </div>
+        <div class="form-row">
+          <label></label>
+          <span id="send-count" style="font-size:12px;color:var(--muted)"></span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <button class="btn success" id="btn-start-send"
+          style="font-size:14px;padding:10px 28px">🚀 Gönderimi Başlat</button>
+        <button class="btn danger" id="btn-stop-send" disabled>⏹ Durdur</button>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="send-progress-fill"></div>
+      </div>
+      <div style="display:flex;gap:24px;margin:8px 0;font-size:12px">
+        <span id="stat-sent" style="color:#2ecc71">✅ 0</span>
+        <span id="stat-failed" style="color:#e94560">❌ 0</span>
+        <span id="stat-total" style="color:var(--muted)">/ 0</span>
+      </div>
+      <div class="section-label" data-lang="send_log_lbl">GÖNDERİM LOGU</div>
+      <div id="send-log"></div>
+    </div>
+  </div>
+
+  <!-- ══ GEÇMİŞ SEKMESİ ══════════════════════════════════════════════════ -->
+  <div class="tab-pane" id="tab-logs">
+    <div id="logs-pane">
+      <h2 data-lang-h2="logs_title" style="color:var(--accent);margin-bottom:12px">📋 Gönderim Geçmişi</h2>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+        <select id="log-campaign" style="flex:1;min-width:200px"></select>
+        <select id="log-status">
+          <option value="">Tümü</option>
+          <option value="sent">Başarılı</option>
+          <option value="failed">Başarısız</option>
+        </select>
+        <button class="btn" id="btn-refresh-logs">🔄 Yenile</button>
+        <button class="btn" id="btn-retry-failed">🔁 Başarısızları Tekrar</button>
+        <button class="btn success" id="btn-export-logs">⬇ CSV</button>
+      </div>
+      <div class="stat-row" id="log-stats"></div>
+      <div class="table-wrap" style="margin-top:8px">
+        <table class="data-table">
+          <thead>
+            <tr><th>Ad</th><th>E-posta</th><th>Durum</th>
+              <th>Hata</th><th>Tarih</th><th>Tekrar</th></tr>
+          </thead>
+          <tbody id="log-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ AYARLAR SEKMESİ ══════════════════════════════════════════════════ -->
+  <div class="tab-pane" id="tab-settings">
+    <div id="settings-pane">
+      <h2 data-lang-h2="smtp_title" style="color:var(--accent);margin-bottom:16px">⚙️ SMTP Ayarları</h2>
+      <div class="settings-group">
+        <h3 data-lang="smtp_provider">SUNUCU</h3>
+        <div class="form-row">
+          <label>Sağlayıcı:</label>
+          <select id="smtp-mode">
+            <option value="gmail">Gmail</option>
+            <option value="outlook">Outlook / Office 365</option>
+            <option value="gmail">Özel SMTP Sunucu</option>
+            <option value="exim">Exim (Local Relay)</option>
+          </select>
+        </div>
+        <div class="hint" id="smtp-hint"></div>
+        <div class="form-row">
+          <label>Sunucu (host):</label>
+          <input type="text" id="smtp-host" value="smtp.gmail.com">
+        </div>
+        <div class="form-row">
+          <label>Port:</label>
+          <input type="number" id="smtp-port" value="587" style="width:90px">
+          <select id="smtp-conn" style="flex:1">
+            <option value="starttls">STARTTLS (port 587)</option>
+            <option value="ssl">SSL / TLS (port 465)</option>
+            <option value="plain">Düz bağlantı (port 25 — Local)</option>
+          </select>
+        </div>
+      </div>
+      <div class="settings-group" id="auth-group">
+        <h3>KİMLİK DOĞRULAMA</h3>
+        <div class="form-row">
+          <label>Kullanıcı adı:</label>
+          <input type="email" id="smtp-user" placeholder="ornek@gmail.com">
+        </div>
+        <div class="form-row">
+          <label>Şifre:</label>
+          <input type="password" id="smtp-pass" placeholder="Uygulama şifresi">
+        </div>
+      </div>
+      <div class="settings-group">
+        <h3>GÖNDERİCİ</h3>
+        <div class="form-row">
+          <label>Gönderen e-posta:</label>
+          <input type="email" id="smtp-from" placeholder="gonderen@sirket.com">
+        </div>
+        <div class="form-row">
+          <label>Gönderen adı:</label>
+          <input type="text" id="smtp-name" placeholder="Şirket Adı">
+        </div>
+        <div class="form-row">
+          <label>Bounce / Return-Path:</label>
+          <input type="email" id="smtp-bounce" placeholder="bounce@sirket.com">
+        </div>
+        <div class="form-row">
+          <label>Reply-To:</label>
+          <input type="email" id="smtp-replyto" placeholder="destek@sirket.com">
+        </div>
+      </div>
+      <div class="settings-group">
+        <h3>HIZ</h3>
+        <div class="form-row">
+          <label>Mail arası bekleme:</label>
+          <input type="number" id="smtp-delay" value="200" min="0" max="10000"
+            style="width:90px"> <span style="font-size:12px;color:var(--muted)">ms</span>
+        </div>
+        <div class="form-row">
+          <label>Batch boyutu:</label>
+          <input type="number" id="smtp-batch" value="0" min="0"
+            style="width:90px">
+          <span style="font-size:12px;color:var(--muted)">0 = sınırsız</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" id="btn-test-smtp">🔌 Bağlantıyı Test Et</button>
+        <button class="btn success" id="btn-save-settings">💾 Kaydet</button>
+      </div>
+      <div id="smtp-test-result" style="margin-top:10px;font-size:13px"></div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ── Modaller ───────────────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modal-recipient">
+  <div class="modal">
+    <h2 id="modal-rec-title">Alıcı Ekle</h2>
+    <div class="input-group"><label>Ad Soyad</label>
+      <input type="text" id="rec-name"></div>
+    <div class="input-group"><label>E-posta *</label>
+      <input type="email" id="rec-email"></div>
+    <div class="input-group"><label>Şirket</label>
+      <input type="text" id="rec-company"></div>
+    <div class="input-group"><label>Grup</label>
+      <select id="rec-group"></select></div>
+    <div class="input-group"><label>Notlar</label>
+      <input type="text" id="rec-notes"></div>
+    <div style="display:flex;gap:12px;margin-top:4px">
+      <label style="font-size:12px;display:flex;align-items:center;gap:4px">
+        <input type="checkbox" id="rec-active" checked> Aktif</label>
+      <label style="font-size:12px;display:flex;align-items:center;gap:4px">
+        <input type="checkbox" id="rec-subscribed" checked> Abone</label>
+    </div>
+    <div class="modal-btns">
+      <button class="btn" id="modal-rec-cancel">İptal</button>
+      <button class="btn accent" id="modal-rec-ok">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-group">
+  <div class="modal">
+    <h2 id="modal-grp-title">Grup</h2>
+    <div class="input-group"><label>Grup Adı *</label>
+      <input type="text" id="grp-name"></div>
+    <div class="input-group"><label>Renk</label>
+      <input type="color" id="grp-color" value="#1B3A5C"></div>
+    <div class="modal-btns">
+      <button class="btn" id="modal-grp-cancel">İptal</button>
+      <button class="btn accent" id="modal-grp-ok">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-campaigns">
+  <div class="modal">
+    <h2>📂 Kayıtlı Campaigns</h2>
+    <div id="campaign-list" style="max-height:300px;overflow-y:auto"></div>
+    <div class="modal-btns">
+      <button class="btn" id="modal-camp-cancel">İptal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── JS ─────────────────────────────────────────────────────────────────── -->
+<script src="/js/app.js"></script>
+<script src="/js/editor.js"></script>
+<script src="/js/recipients.js"></script>
+<script src="/js/send.js"></script>
+<script src="/js/logs.js"></script>
+<script src="/js/settings.js"></script>
+</body>
+</html>

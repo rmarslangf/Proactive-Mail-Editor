@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  proactivemail:
+    build: .
+    container_name: proactivemail
+    restart: unless-stopped
+    ports:
+      - "5000:5000"          
+    volumes:
+      - ./data:/app/data     
+    environment:
+      PM_HOST: "0.0.0.0"
+      PM_PORT: "5000"
+      PM_DEBUG: "0"          
+      PM_SECRET: "degistir-bunu-gizli-bir-seyler-yaz"
+      PM_DB_PATH: "/app/data/proactivemail.db"

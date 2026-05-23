@@ -1,0 +1,18 @@
+{
+  "lang": "TR",
+  "subject": "",
+  "header_path": "",
+  "header_bg": "#1B3A5C",
+  "header_text_color": "#FFFFFF",
+  "footer_text": "Bu e-posta otomatik olarak gönderilmiştir. | © 2025 Şirketiniz",
+  "footer_path": "",
+  "footer_bg": "#1B3A5C",
+  "footer_text_color": "#AABCD0",
+  "box_bg": "#ffffff",
+  "accent_color": "#1B3A5C",
+  "show_subject": true,
+  "show_footer_text": true,
+  "global_font_size": 15,
+  "global_font_family": "Georgia, serif",
+  "blocks": []
+}

@@ -1,0 +1,329 @@
+/* ProactiveMail Web — Koyu Tema */
+:root {
+  --bg:        #1a1a2e;
+  --panel:     #16213e;
+  --card:      #0d1b2a;
+  --border:    #0f3460;
+  --accent:    #e94560;
+  --accent2:   #27ae60;
+  --text:      #e8e4d9;
+  --muted:     #7070a0;
+  --radius:    8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', 'SF Pro Display', Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Üst çubuk ──────────────────────────────────────────────────────────── */
+#topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 48px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+#topbar .logo {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-right: 16px;
+}
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+}
+.tab-btn.active, .tab-btn:hover {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+#topbar .spacer { flex: 1; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--border); color: var(--text);
+  border: none; border-radius: var(--radius);
+  padding: 7px 14px; font-size: 12px; cursor: pointer;
+  transition: background .2s;
+}
+.btn:hover { background: var(--accent); }
+.btn.success { background: #1a5c35; }
+.btn.success:hover { background: var(--accent2); }
+.btn.danger  { background: #5c1a1a; }
+.btn.danger:hover  { background: #e94560; }
+.btn.accent  { background: var(--accent); }
+.btn.accent:hover  { background: #ff6b81; }
+
+/* ── Ana alan ───────────────────────────────────────────────────────────── */
+#main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sekmeler */
+.tab-pane { display: none; width: 100%; overflow: hidden; }
+.tab-pane.active { display: flex; }
+
+/* ── Editör sekmesi ─────────────────────────────────────────────────────── */
+#editor-pane {
+  display: flex;
+  width: 100%;
+}
+#left-panel {
+  width: 520px;
+  min-width: 380px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#left-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+#right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#preview-frame {
+  flex: 1;
+  border: none;
+  background: #e8edf2;
+}
+
+/* ── Sol panel bileşenleri ──────────────────────────────────────────────── */
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--muted);
+  padding: 8px 0 4px;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.input-group label { font-size: 11px; color: var(--muted); }
+input[type=text], input[type=email], input[type=number],
+input[type=password], select, textarea {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 7px 10px;
+  font-size: 13px;
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+}
+.color-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.color-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--border); cursor: pointer;
+  flex-shrink: 0; transition: border-color .2s;
+}
+.color-dot:hover { border-color: var(--accent); }
+input[type=color] {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--border); cursor: pointer;
+  padding: 0; background: none;
+}
+
+/* ── Blok kartları ──────────────────────────────────────────────────────── */
+.block-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 6px;
+  padding: 10px 12px;
+  cursor: grab;
+  transition: border-color .2s;
+}
+.block-card:hover { border-color: var(--accent); }
+.block-card.dragging { opacity: .5; border-color: var(--accent); }
+.block-card.drag-over { border-color: var(--accent2); border-style: dashed; }
+.block-header {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 8px;
+}
+.block-type-label {
+  font-size: 11px; font-weight: 700;
+  color: var(--accent); letter-spacing: 1px; flex: 1;
+}
+.block-ctrl { background: transparent; border: 1px solid var(--border);
+  border-radius: 4px; color: var(--muted); cursor: pointer;
+  width: 22px; height: 22px; font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.block-ctrl:hover { border-color: var(--accent); color: var(--accent); }
+.block-ctrl.del:hover { color: #e94560; border-color: #e9456040; }
+textarea.block-ta {
+  height: 70px; resize: vertical; font-size: 12px;
+}
+.block-row { display: flex; gap: 6px; align-items: center; margin-bottom: 4px; }
+.block-row label { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.block-row input { flex: 1; }
+.add-block-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin: 6px 0;
+}
+.add-block-btn {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); border-radius: 6px;
+  padding: 5px 4px; font-size: 11px; cursor: pointer;
+  text-align: center; transition: all .2s;
+}
+.add-block-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Gönderim sekmesi ───────────────────────────────────────────────────── */
+#send-pane {
+  padding: 24px; max-width: 800px; overflow-y: auto; width: 100%;
+}
+.progress-bar-wrap {
+  background: var(--card); border-radius: 8px;
+  height: 12px; overflow: hidden; margin: 8px 0;
+}
+.progress-bar-fill {
+  height: 100%; background: var(--accent2);
+  border-radius: 8px; transition: width .3s;
+  width: 0%;
+}
+#send-log {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px;
+  height: 260px; overflow-y: auto;
+  font-family: monospace; font-size: 12px;
+  color: #aaa;
+}
+.log-ok   { color: #2ecc71; }
+.log-fail { color: #e94560; }
+.log-info { color: #7070a0; }
+
+/* ── Alıcılar sekmesi ───────────────────────────────────────────────────── */
+#recipients-pane {
+  display: flex; width: 100%; overflow: hidden;
+}
+#group-panel {
+  width: 200px; flex-shrink: 0;
+  background: var(--panel); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; padding: 12px; gap: 6px;
+}
+.group-item {
+  padding: 7px 10px; border-radius: 6px; cursor: pointer;
+  font-size: 13px; display: flex; align-items: center; gap: 8px;
+  transition: background .15s;
+}
+.group-item:hover, .group-item.active { background: var(--card); }
+.group-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+#recipient-panel {
+  flex: 1; display: flex; flex-direction: column;
+  overflow: hidden; padding: 12px;
+}
+.toolbar { display: flex; gap: 6px; align-items: center;
+  margin-bottom: 8px; flex-wrap: wrap; }
+.toolbar input[type=text] { width: 180px; }
+table.data-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+table.data-table th {
+  background: var(--border); color: var(--text);
+  padding: 8px 10px; text-align: left; font-weight: 700;
+  position: sticky; top: 0;
+}
+table.data-table td {
+  padding: 7px 10px; border-bottom: 1px solid var(--card);
+}
+table.data-table tr:hover td { background: var(--card); }
+.table-wrap { flex: 1; overflow-y: auto; border-radius: 8px;
+  border: 1px solid var(--border); }
+.badge {
+  padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600;
+}
+.badge.ok   { background: #1a5c3540; color: var(--accent2); }
+.badge.fail { background: #5c1a1a40; color: var(--accent); }
+.badge.warn { background: #5c4a1a40; color: #e9a000; }
+
+/* ── Log sekmesi ────────────────────────────────────────────────────────── */
+#logs-pane { padding: 16px; overflow-y: auto; width: 100%; }
+.stat-row { display: flex; gap: 24px; margin: 12px 0; }
+.stat-box {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 20px; text-align: center;
+}
+.stat-num { font-size: 28px; font-weight: 700; }
+.stat-lbl { font-size: 11px; color: var(--muted); }
+
+/* ── Ayarlar sekmesi ────────────────────────────────────────────────────── */
+#settings-pane {
+  padding: 24px; max-width: 600px; overflow-y: auto; width: 100%;
+}
+.settings-group {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px; margin-bottom: 16px;
+}
+.settings-group h3 {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  color: var(--muted); margin-bottom: 12px;
+}
+.form-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.form-row label {
+  width: 160px; font-size: 12px; color: var(--muted); flex-shrink: 0;
+}
+.form-row input, .form-row select { flex: 1; }
+.hint { font-size: 11px; color: #5a8a7a; font-style: italic;
+  margin-top: 4px; }
+
+/* ── Modal ──────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.7); z-index: 100;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; min-width: 380px; max-width: 560px;
+  width: 90%;
+}
+.modal h2 { font-size: 15px; margin-bottom: 16px; color: var(--accent); }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+
+/* ── Scroll ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
